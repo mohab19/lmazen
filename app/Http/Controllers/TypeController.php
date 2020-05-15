@@ -7,7 +7,6 @@ use App\Http\Requests\TypeRequest;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
-use App\Sector;
 use App\Type;
 
 class TypeController extends Controller
@@ -28,8 +27,8 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $sectors = Sector::all();
-        return view('types.create', compact('types', 'categories', 'sectors'));
+        $categories = Category::all();
+        return view('types.create', compact('categories'));
     }
 
     /**
@@ -39,19 +38,7 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TypeRequest $request) {
-        $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
-        request()->image->move(public_path('images/uploaded'), $imageName);
-
-        $type = Type::create([
-            'name' => $request->name,
-            'category_id' => $request->category_id,
-            'image' => $imageName
-        ]);
-
-        if($type)
-            return response(200);
-        else
-            return response(500);
+        $type = Type::create($request->all());
     }
 
     /**
@@ -60,8 +47,7 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        $type = Type::find($id);
+    public function show(Type $type) {
         return view('types.show', compact('type'));
     }
 
@@ -71,12 +57,9 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        $type = Type::find($id);
+    public function edit(Type $type) {
         $categories = Category::all();
-        $sectors = Sector::all();
-
-        return view('types.edit', compact('type', 'categories','sectors'));
+        return view('types.edit', compact('type', 'categories'));
     }
 
     /**
@@ -86,26 +69,8 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(TypeRequest $request, $id) {
-        $type = Type::find($id);
-        $data = $request->input();
-        if($request->hasFile('image')) {
-            $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
-            request()->image->move(public_path('images/uploaded'), $imageName);
-        } else {
-            $imageName = $type->image;
-        }
-
-        $type = Type::where('id', $id)->update([
-            'category_id' => $data['category_id'],
-            'name' => $data['name'],
-            'image' => $imageName
-        ]);
-
-        if($type)
-            return response(200);
-        else
-            return response(500);
+    public function update(TypeRequest $request, Type $type) {
+        $type->update($request->all());
     }
 
     /**
@@ -114,15 +79,9 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        $type = Type::find($id);
-        $products = Product::where('type_id', $id)->delete();
+    public function destroy(Type $type) {
+        $products = Product::where('type_id', $type->id)->delete();
         $type->delete();
-
-        if($type)
-            return response(200);
-        else
-            return response(500);
     }
 
     /**

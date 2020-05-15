@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SliderRequest extends FormRequest
+class SupplierRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class SliderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string|max:255',
-            'image' => 'required_without:old_image|image|mimes:jpeg,jpg,png',
-            'type'  => 'required|string',
+            'name'    => 'required|string|max:255',
+            'mobile'  => 'required|numeric|digits_between:11,14',
+            'email'   => 'string|email|max:255|unique:suppliers,email,'.$this->id,
+            'address' => 'string|max:255',
         ];
     }
 }

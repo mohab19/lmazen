@@ -13,9 +13,11 @@
 
 Route::get('login', 'Auth\AdminLoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\AdminLoginController@login')->name('login.submit');
+Route::auth();
 
 Route::group(['middleware' => 'auth:admin'], function () {
     /*** home page admin route ***/
+    Route::get('/', 'AdminController@index')->name('home');
     Route::get('/admin', 'AdminController@index')->name('admin');
     Route::group(['prefix' => 'admin'], function () {
 
@@ -30,7 +32,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('categories/get_categories/{id}', 'CategoryController@getCategories');
         Route::resource('types', 'TypeController');
         Route::get('types/get_types/{id}', 'TypeController@getTypes');
-        Route::resource('companies', 'CompanyController');
+        Route::resource('brands', 'BrandController');
+        Route::get('brands/get_brands/{id}', 'BrandController@getBrands');
+        Route::resource('suppliers', 'SupplierController');
         Route::resource('products', 'ProductController');
         Route::resource('requests', 'UserRequestController');
     });

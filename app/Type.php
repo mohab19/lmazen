@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['category_id', 'name', 'image'];
+    protected $fillable = ['category_id', 'name_ar', 'name_en'];
 
     public function Category()
     {
@@ -19,11 +19,6 @@ class Type extends Model
     public function Product()
     {
         return $this->hasMany('App\Product');
-    }
-
-    public function Projects()
-    {
-        return $this->hasMany('App\Project');
     }
 
 }

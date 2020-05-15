@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use App\Category;
-use App\Sector;
 use App\Type;
 
 class CategoryController extends Controller
@@ -16,8 +15,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function index() {
-         $categories = Category::all();
-         return view('categories.index', compact('categories'));
+        $categories = Category::all();
+        return view('categories.index', compact('categories'));
      }
 
     /**
@@ -26,8 +25,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $sectors = Sector::all();
-        return view('categories.create', compact('sectors'));
+        return view('categories.create');
     }
 
     /**
@@ -37,12 +35,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request) {
-        $data = $request->input();
-        $category = Category::create($data);
-        if($category)
-            return response(200);
-        else
-            return response(500);
+        $category = Category::create($request->all());
     }
 
     /**
@@ -51,8 +44,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        $category = Category::find($id);
+    public function show(Category $category) {
         return view('categories.show', compact('category'));
     }
 
@@ -62,10 +54,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        $sectors = Sector::all();
-        $category = Category::find($id);
-        return view('categories.edit', compact('sectors', 'category'));
+    public function edit(Category $category) {
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -75,17 +65,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        $data = $request->input();
-        $category = Category::where('id', $id)->update([
-            'sector_id' => $data['sector_id'],
-            'name' => $data['name'],
-        ]);
-
-        if($category)
-            return response(200);
-        else
-            return response(500);
+    public function update(CategoryRequest $request, Category $category) {
+        $category->update($request->all());
     }
 
     /**
@@ -94,13 +75,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        $category = Category::find($id);
-        $category = $category->delete();
-        if($category)
-            return response(200);
-        else
-            return response(500);
+    public function destroy(Category $category) {
+        $category->delete();
     }
 
     /**
@@ -118,8 +94,8 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCategories($id) {
-        $categories = Category::where('sector_id', $id)->get();
+    public function getCategories() {
+        $categories = Category::all();
         return $categories;
     }
 }

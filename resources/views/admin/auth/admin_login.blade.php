@@ -43,7 +43,7 @@
                 <span class="splash-description">Please enter your Admin information</span>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.login') }}" method="post">
+                <form action="{{route('login.submit')}}" method="post">
                     {!! csrf_field() !!}
                     <div class="form-group">
                         <input class="form-control form-control-lg" name="email" type="email" placeholder="Email" autocomplete="off">

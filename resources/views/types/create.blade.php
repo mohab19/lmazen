@@ -1,6 +1,6 @@
 @extends('admin.layouts.head')
 @section('title')
-    <title>{{ Lang::get('main.home_page_title') }}</title>
+    <title>@lang('types.types')</title>
 @endsection
 @section('content')
 <div class="container-fluid dashboard-content">
@@ -10,16 +10,16 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
-                <h1 class="page-title"> {{ Lang::get('main.types') }}
-                    <small>{{ Lang::get('main.create') }}</small>
+                <h1 class="page-title">@lang('types.types')
+                    <small>@lang('main.create')</small>
                 </h1>
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">{{ Lang::get('main.dashboard') }}</a>
+                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page"><span>{{ Lang::get('main.types') }}</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span>@lang('types.types')</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -37,48 +37,37 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header">Add New Type</h5>
+                        <h5 class="card-header">@lang('types.add_new')</h5>
                         <div class="card-body">
-                            <div class="alert alert-dismissible" style="display: hidden;">
-                                <ul id="notification" style="margin-bottom: 0;">
+                            <div class="alert alert-dismissible" id="notification" style="display: none;">
+                                <ul style="margin-bottom: 0;">
 
                                 </ul>
                             </div>
-                            <form id="new_type" enctype="multipart/form-data">
+                            <form id="form" action="post">
                                 @csrf
-                                <input type="hidden" name="url" id="route" value="{{route('types.store')}}">
-                                <select class="form-control" name="sector_id" id="type_sector_id" data-url="{{URL('admin/categories/get_categories')}}" required style="margin-bottom: 20px;">
-                                    <option value="0" disabled selected>Select Sector: </option>
-                                    @foreach($sectors as $sector)
-                                    <option value="{{$sector->id}}">- {{$sector->name}}</option>
+                                <input type="hidden" id="route" value="{{route('types.store')}}">
+                                <input type="hidden" id="form_name" value="Type" data-id="types">
+                                <select name="category_id" id="type_categories"  class="form-control" required>
+                                    <option value="0" disabled selected>Select Category: </option>
+                                    @foreach($categories as $key => $category)
+                                    <option value="{{$category->id}}">{{$category['name_'.Lang::locale()]}}</option>
                                     @endforeach
                                 </select>
-                                <select name="category_id" id="type_categories" disabled class="form-control" required>
-                                    <option value="0" disabled selected>Select Category: </option>
-
-                                </select>
                                 <div class="form-group">
-                                    <label for="sector_name" class="col-form-label">Type Name</label>
-                                    <input type="text" name="name" class="form-control" required>
+                                    <label for="name_ar" class="col-form-label">@lang('types.name_ar')</label>
+                                    <input type="text" name="name_ar" class="form-control" required>
                                 </div>
-                                <div class="custom-file">
-                                    <input type="file" name="image" onchange="readURL(this)" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                <div class="form-group">
+                                    <label for="name_en" class="col-form-label">@lang('types.name_en')</label>
+                                    <input type="text" name="name_en" class="form-control" required>
                                 </div>
-                                <div class="col-sm-6 pl-0" style="margin-top:20px;float: right;">
-                                    <p class="text-right">
-                                        <button type="submit" class="btn btn-space btn-primary">Save</button>
-                                        <a href="{{url()->previous()}}"><span class="btn btn-space btn-secondary">Cancel</span></a>
-                                    </p>
+                                <div class="col-sm-12 text-center pl-0 mt-3" style="float: right;">
+                                    <button type="submit" class="btn btn-space btn-primary col-sm-4">@lang('main.save')</button>
+                                    <a href="{{url()->previous()}}"><span class="btn btn-space btn-secondary col-sm-4">@lang('main.cancel')</span></a>
                                 </div>
                             </form>
-                            <div class="row" style="margin-top:20px;">
-                                <div class="col-md-6 image" style="display: none;">
-                                    <img src="" width="200" height="180" alt="">
-                                </div>
-                            </div>
                         </div>
-
                     </div>
                 </div>
                 <!-- ============================================================== -->

@@ -14,9 +14,5 @@ return [
     */
 
     'product' => 'منتجات',
-    'catalogs' => '',
-    'projects' => 'مشاريع',
-    'news_trends' => 'أخبار و',
-    'e-magazine' => '',
 
 ];

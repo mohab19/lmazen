@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSectorsTable extends Migration
+class CreateSupplierAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateSectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sectors', function (Blueprint $table) {
+        Schema::create('supplier_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('name', 255);
-            $table->enum('sector_type', ['products', 'projects', 'news', 'jobs']);
-            $table->enum('sector_devision', ['CSI', 'Building']);
-
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +26,6 @@ class CreateSectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sectors');
+        Schema::dropIfExists('supplier_accounts');
     }
 }

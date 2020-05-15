@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanySubDevisionRequest extends FormRequest
+class BrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CompanySubDevisionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class CompanySubDevisionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
         ];
     }
 }

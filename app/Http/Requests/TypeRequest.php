@@ -24,10 +24,9 @@ class TypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'sector_id' => 'required|numeric',
             'category_id' => 'required|numeric',
-            'name' => 'required|string|max:255',
-            'image' => 'required_without:old_image|image|mimes:jpeg,jpg,png|max:4096'
+            'name_ar'     => 'required|string|max:255',
+            'name_en'     => 'required|string|max:255',
         ];
     }
 }
