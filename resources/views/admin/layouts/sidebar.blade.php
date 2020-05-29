@@ -7,6 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav flex-column">
                 <li class="nav-divider">Main</li>
+                @auth('admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{URL('/admin')}}"><i class="fas fa-fw fa-columns"></i>Dashboard</a>
                 </li>
@@ -33,12 +34,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{URL('admin/suppliers')}}"><i class="fas fa-car"></i> Suppliers</a>
                 </li>
+                @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{URL('admin/customers')}}"><i class="fas fa-users"></i> Customers</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{URL('admin/products')}}"><i class="far fa-envelope-open"></i> Products</a>
                 </li>
+                @auth('admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{URL('admin/requests')}}"><i class="far fa-envelope-open"></i> Users Requests</a>
+                    <a class="nav-link" href="{{URL('admin/reports')}}"><i class="far fa-file-alt"></i> Reports</a>
                 </li>
+                @endauth
+                <!--<li class="nav-item">
+                    <a class="nav-link" href="{{URL('admin/requests')}}"><i class="far fa-envelope-open"></i> Users Requests</a>
+                </li>-->
             </ul>
         </div>
     </nav>

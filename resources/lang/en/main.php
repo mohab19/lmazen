@@ -14,6 +14,7 @@ return [
     'active' => 'Active',
     'action' => 'Action',
     'view' => 'view',
+    'show' => 'show',
     'home' => 'Home',
     'add' => 'Add',
     'enter' => 'Enter ',

@@ -2,22 +2,27 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'type_id', 'company_id', 'description', 'new_product', 'image'];
+    protected $fillable = ['name', 'supplier_id', 'type_id', 'brand_id', 'description', 'buying_price', 'selling_price', 'port_no', 'quantity', 'image'];
 
     public function Type()
     {
         return $this->belongsTo('App\Type');
     }
 
-    public function Company()
+    public function Brand()
     {
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo('App\Brand');
+    }
+
+    public function Supplier()
+    {
+        return $this->belongsTo('App\Supplier');
     }
 }

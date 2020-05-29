@@ -11,32 +11,38 @@
 |
 */
 
-Route::get('login', 'Auth\AdminLoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\AdminLoginController@login')->name('login.submit');
 Route::auth();
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin-login');
+Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin-login.submit');
 
-Route::group(['middleware' => 'auth:admin'], function () {
-    /*** home page admin route ***/
-    Route::get('/', 'AdminController@index')->name('home');
-    Route::get('/admin', 'AdminController@index')->name('admin');
-    Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => '{language}'], function () {
+    Route::group(['middleware' => ['auth:web,admin']], function () {
+        /*** home page admin route ***/
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::group(['prefix' => 'admin'], function () {
 
-        /*** users routes ***/
-        Route::resource('users', 'UserController');
-        Route::post('users_search', ['uses' => 'UserController@search', 'as' => 'users_view']);
-        Route::get('users/activation/{user}','UserController@activation');
+            /*** users routes ***/
+            Route::resource('users', 'UserController');
+            Route::post('users_search', ['uses' => 'UserController@search', 'as' => 'users_view']);
+            Route::get('users/activation/{user}','UserController@activation');
 
-        /*** System routes ***/
-        Route::resource('sectors', 'SectorController');
-        Route::resource('categories', 'CategoryController');
-        Route::get('categories/get_categories/{id}', 'CategoryController@getCategories');
-        Route::resource('types', 'TypeController');
-        Route::get('types/get_types/{id}', 'TypeController@getTypes');
-        Route::resource('brands', 'BrandController');
-        Route::get('brands/get_brands/{id}', 'BrandController@getBrands');
-        Route::resource('suppliers', 'SupplierController');
-        Route::resource('products', 'ProductController');
-        Route::resource('requests', 'UserRequestController');
+            /*** System routes ***/
+            Route::resource('categories', 'CategoryController');
+            Route::get('categories/get_categories/{id}', 'CategoryController@getCategories');
+            Route::resource('types', 'TypeController');
+            Route::get('types/get_types/{id}', 'TypeController@getTypes');
+            Route::resource('brands', 'BrandController');
+            Route::get('brands/get_brands/{id}', 'BrandController@getBrands');
+            Route::resource('suppliers', 'SupplierController');
+            Route::resource('supplier_account', 'SupplierAccountController');
+            Route::resource('customers', 'CustomerController');
+            Route::resource('customer_history', 'CustomerHistoryController');
+            Route::resource('products', 'ProductController');
+            Route::resource('requests', 'UserRequestController');
+            Route::resource('reports', 'ReportController');
+            Route::post('reports/create', 'ReportController@create');
+        });
     });
 });
 

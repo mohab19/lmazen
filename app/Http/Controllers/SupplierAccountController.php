@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\SupplierAccount;
 use Illuminate\Http\Request;
+use App\SupplierAccount;
 
 class SupplierAccountController extends Controller
 {
@@ -69,7 +69,15 @@ class SupplierAccountController extends Controller
      */
     public function update(Request $request, SupplierAccount $supplierAccount)
     {
-        //
+        if($request->paid > $supplierAccount->remain) {
+            return response()
+            ->json(['status' => 402, 'message' => 'Paid amount can not be greater then remain']);
+        } else {
+            $update = $supplierAccount->update([
+                'paid'   => $request->paid,
+                'remain' => $supplierAccount->remain - $request->paid,
+            ]);
+        }
     }
 
     /**

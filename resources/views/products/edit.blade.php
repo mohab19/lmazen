@@ -39,50 +39,78 @@
                     <div class="card">
                         <h5 class="card-header">Edit Product {{$product->name}}</h5>
                         <div class="card-body">
-                            <div class="alert alert-dismissible" style="display: hidden;">
-                                <ul id="notification" style="margin-bottom: 0;">
+                            <div class="alert alert-dismissible" id="notification" style="display: none;">
+                                <ul style="margin-bottom: 0;">
 
                                 </ul>
                             </div>
-                            <form id="edit_product" enctype="multipart/form-data">
+                            <form id="form" class="row" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" name="url" id="route" value="{{URL('admin/products')}}">
-                                <input type="hidden" name="id" id="id" value="{{$product->id}}">
-                                <select name="type_id" class="form-control" style="margin-bottom: 20px;" required>
-                                    <option value="0" disabled>Select Type: </option>
-                                    @foreach($types as $type)
-                                    <option value="{{$type->id}}" @if($product->type_id == $type->id) selected @endif>- {{$type->name}}</option>
-                                    @endforeach
-                                </select>
-                                <select name="company_id" class="form-control" style="margin-bottom: 20px;" required>
-                                    <option value="0" disabled>Select Company: </option>
-                                    @foreach($companies as $company)
-                                    <option value="{{$company->id}}" @if($product->company_id == $company->id) selected @endif>- {{$company->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="form-group" style="margin-bottom: 20px;">
+                                <input type="hidden" id="route" value="{{route('products.update', $product->id)}}">
+                                <input type="hidden" id="form_name" value="Product" data-id="products">
+                                <div class="form-group col-sm-6">
+                                    <select name="type_id" class="form-control" required>
+                                        <option value="0" disabled>Select Type: </option>
+                                        @foreach($types as $key => $type)
+                                        <option value="{{$type->id}}" @if($product->type_id == $type->id) selected @endif>{{$type['name_'.Lang::locale()]}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <select name="brand_id" class="form-control" required>
+                                        <option value="0" disabled>Select Brand: </option>
+                                        @foreach($brands as $key => $brand)
+                                        <option value="{{$brand->id}}" @if($product->brand_id == $brand->id) selected @endif>{{$brand['name_'.Lang::locale()]}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="name" class="col-form-label">@lang('products.name')</label>
                                     <input type="text" name="name" class="form-control" value="{{$product->name}}" required>
                                 </div>
-                                <input type="hidden" name="old_image" value="{{$product->image}}">
-                                <div class="custom-file" style="margin-bottom: 20px;">
-                                    <input type="file" name="image" onchange="readURL(this)" class="custom-file-input" id="customFile" value="{{URL('images/uploaded') . '/' . $product->image}}">
-                                    <label class="custom-file-label" for="customFile">Choose Image</label>
+                                <div class="form-group col-sm-6 mt-4">
+                                    <select name="supplier_id" class="form-control" required>
+                                        <option value="0" disabled>Select Supplier: </option>
+                                        @foreach($suppliers as $key => $supplier)
+                                        <option value="{{$supplier->id}}" @if($product->supplier_id == $supplier->id) selected @endif>{{$supplier->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" name="description" rows="4" cols="80">{{$product->description}}</textarea>
+                                <div class="form-group col-sm-12">
+                                    <label for="address" class="col-form-label">@lang('products.description')</label>
+                                    <textarea name="description" rows="3" cols="80" class="form-control">{{$product->description}}</textarea>
                                 </div>
-                                <div class="form-check" style="margin-bottom: 20px;">
-                                    <input class="form-check-input" type="checkbox" name="new_product" id="new_product"  @if($product->new_product == 1) checked @endif value="1">
-                                    <label class="form-check-label" for="new_product">
-                                        Make this appear in the New Products list
-                                    </label>
+                                <div class="form-group col-sm-6">
+                                    <label for="port_no" class="col-form-label">@lang('products.port_no')</label>
+                                    <input type="text" name="port_no" class="form-control" value="{{$product->port_no}}" required>
                                 </div>
-                                <div class="col-sm-6 pl-0" style="margin-top:20px;float: right;">
-                                    <p class="text-right">
-                                        <button type="submit" class="btn btn-space btn-primary">Save</button>
-                                        <button class="btn btn-space btn-secondary">Cancel</button>
-                                    </p>
+                                <div class="form-group col-sm-6">
+                                    <label for="buying_price" class="col-form-label">@lang('products.buying_price')</label>
+                                    <input type="number" min="0" name="buying_price" class="form-control" value="{{$product->buying_price}}" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="selling_price" class="col-form-label">@lang('products.selling_price')</label>
+                                    <input type="number" min="0" name="selling_price" class="form-control" value="{{$product->selling_price}}" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="quantity" class="col-form-label">@lang('products.quantity')</label>
+                                    <input type="number" min="0" name="quantity" class="form-control" value="{{$product->quantity}}" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="col-form-label" for="customFile">@lang('products.image')</label>
+                                    <input type="file" name="image" onchange="readURL(this)" class="form-control" id="customFile">
+                                </div>
+
+                                <div class="form-group col-sm-6 mt-4">
+                                    <div class="image">
+                                        <img src="{{url('images/products').'/'.$product->image}}" width="200" height="180" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 text-center mt-3">
+                                    <button type="submit" class="btn btn-space btn-primary col-sm-4">@lang('main.save')</button>
+                                    <a href="{{url()->previous()}}"><span class="btn btn-space btn-secondary col-sm-4">@lang('main.cancel')</span></a>
                                 </div>
                             </form>
                             <div class="row">

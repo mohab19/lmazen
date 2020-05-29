@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{URL('assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
 @endsection
 @section('title')
-    <title>@lang('brands.brands')</title>
+    <title>@lang('suppliers.suppliers')</title>
 @endsection
 @section('content')
 <div class="container-fluid dashboard-content">
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
-                <h1 class="page-title">@lang('brands.brands')
+                <h1 class="page-title">@lang('suppliers.suppliers')
                     <small>@lang('main.edit')</small>
                 </h1>
                 <div class="page-breadcrumb">
@@ -25,7 +25,7 @@
                             <li class="breadcrumb-item">
                                 <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page"><span>@lang('brands.brands')</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span>@lang('suppliers.suppliers')</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -43,7 +43,7 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header">@lang('brands.edit')</h5>
+                        <h5 class="card-header">@lang('suppliers.edit')</h5>
                         <div class="card-body">
                             <div class="alert alert-dismissible" id="notification" style="display: none;">
                                 <ul style="margin-bottom: 0;">

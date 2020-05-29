@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{URL('assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
 @endsection
 @section('title')
-    <title>{{ Lang::get('main.home_page_title') }}</title>
+    <title>@lang('customers.customers')</title>
 @endsection
 @section('content')
 <div class="container-fluid dashboard-content">
@@ -16,16 +16,16 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
-                <h1 class="page-title"> {{ Lang::get('main.sectors') }}
-                    <small>{{ Lang::get('main.create') }}</small>
+                <h1 class="page-title">@lang('customers.customers')
+                    <small>@lang('main.edit')</small>
                 </h1>
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">{{ Lang::get('main.dashboard') }}</a>
+                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page"><span>{{ Lang::get('main.sectors') }}</span></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span>@lang('customers.customers')</span></li>
                         </ol>
                     </nav>
                 </div>
@@ -43,41 +43,41 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header">Add New Sector</h5>
+                        <h5 class="card-header">@lang('customers.edit')</h5>
                         <div class="card-body">
-                            <div class="alert alert-dismissible" style="display: hidden;">
-                                <ul id="notification" style="margin-bottom: 0;">
+                            <div class="alert alert-dismissible" id="notification" style="display: none;">
+                                <ul style="margin-bottom: 0;">
 
                                 </ul>
                             </div>
-                            <form id="new_sector">
+                            <form id="form">
                                 @csrf
-                                <input type="hidden" name="url" id="route" value="{{route('sectors.store')}}">
-                                <select name="sector_devision" id="sector_devision" class="form-control" style="margin-bottom: 20px;" required>
-                                    <option value="0" disabled selected>Select Sector Devision: </option>
-                                    @foreach($sectorDevisions as $devision)
-                                    <option value="{{$devision}}">- {{$devision}}</option>
-                                    @endforeach
-                                </select>
-                                <select name="sector_type" id="sector_type" disabled class="form-control" style="margin-bottom: 20px;" required>
-                                    <option value="0" disabled selected>Select Sector Type: </option>
-                                    @foreach($sectorTypes as $type)
-                                        <option value="{{$type}}">- {{$type}}</option>
-                                    @endforeach
-                                </select>
+                                @method('PUT')
+                                <input type="hidden" id="form_name" value="Customer" data-id="customers">
+                                <input type="hidden" id="route" value="{{route('customers.update', $customer->id)}}">
                                 <div class="form-group">
-                                    <label for="sector_name" class="col-form-label">Sector Name</label>
-                                    <input id="sector_name" name="name" type="text" class="form-control">
+                                    <label for="name" class="col-form-label">@lang('customers.name')</label>
+                                    <input type="text" name="name" class="form-control" value="{{$customer->name}}" required>
                                 </div>
-                                <div class="col-sm-6 pl-0" style="float: right;">
-                                    <p class="text-right">
-                                        <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                        <a href="{{url()->previous()}}"><span class="btn btn-space btn-secondary">Cancel</span></a>
-                                    </p>
+                                <div class="form-group">
+                                    <label for="mobile" class="col-form-label">@lang('customers.mobile')</label>
+                                    <input type="text" name="mobile" class="form-control" value="{{$customer->mobile}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">@lang('customers.email')</label>
+                                    <input type="email" name="email" class="form-control" value="{{$customer->email}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address" class="col-form-label">@lang('customers.address')</label>
+                                    <textarea name="address" rows="3" cols="80" class="form-control">{{$customer->address}}</textarea>
+                                </div>
+
+                                <div class="col-sm-12 text-center pl-0 mt-3" style="float: right;">
+                                    <button type="submit" class="btn btn-space btn-primary col-sm-4">@lang('main.edit')</button>
+                                    <a href="{{url()->previous()}}"><span class="btn btn-space btn-secondary col-sm-4">@lang('main.cancel')</span></a>
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
                 <!-- ============================================================== -->

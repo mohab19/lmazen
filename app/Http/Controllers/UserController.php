@@ -15,7 +15,36 @@ class UserController extends Controller
      */
     public function index() {
         $users = User::all();
-        return view('admin.users.users', compact('users'));
+        return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UserRequest $request)
+    {
+        $user = User::create([
+            'name'     => $request->name,
+            'mobile'   => $request->mobile,
+            'email'    => $request->email,
+            'salary'   => $request->salary,
+            'password' => \Hash::make($request->password)
+        ]);
+
+        return 200;
     }
 
     public function activation(User $user) {
@@ -51,15 +80,13 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $data = $request->input();
-
-        $User = User::where('id', $user->id)->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => \Hash::make($data['password']),
+        $user->update([
+            'name'     => $request->name,
+            'mobile'   => $request->mobile,
+            'email'    => $request->email,
+            'salary'   => $request->salary,
+            'password' => \Hash::make($request->password)
         ]);
-
-        return response(200);
     }
 
     /**

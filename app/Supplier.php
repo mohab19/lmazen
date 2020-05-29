@@ -16,4 +16,9 @@ class Supplier extends Model
         return $this->hasMany('App\Product');
     }
 
+    public function Accounts()
+    {
+        return $this->hasMany('App\SupplierAccount');
+    }
+
 }

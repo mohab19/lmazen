@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
-use App\Company;
+use App\SupplierAccount;
+use App\Customer;
+use App\Supplier;
 use App\Product;
-use App\Sector;
+use App\Brand;
 use App\Type;
 
 class ProductController extends Controller
@@ -18,7 +20,8 @@ class ProductController extends Controller
      */
     public function index() {
         $products = Product::all();
-        return view('products.index', compact('products'));
+        $customers = Customer::all();
+        return view('products.index', compact('products', 'customers'));
     }
 
     /**
@@ -27,10 +30,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $sectors = Sector::all();
-        $companies = Company::all();
-
-        return view('products.create', compact('sectors', 'companies'));
+        $types     = Type::all();
+        $brands    = Brand::all();
+        $suppliers = Supplier::all();
+        return view('products.create', compact('types', 'brands', 'suppliers'));
     }
 
     /**
@@ -40,18 +43,40 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request) {
-        $data = $request->input();
         $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
-        request()->image->move(public_path('images/uploaded'), $imageName);
+        request()->image->move(public_path('images/products'), $imageName);
 
         $product = Product::create([
-            'name' => $data['name'],
-            'image' => $imageName,
-            'description' => $data['description'],
-            'type_id' => $data['type_id'],
-            'company_id' => $data['company_id'],
-            'new_product' => $data['new_product'] != null ? $data['new_product'] : 0
+            'name'          => $request->name,
+            'description'   => $request->description,
+            'image'         => $imageName,
+            'brand_id'      => $request->brand_id,
+            'type_id'       => $request->type_id,
+            'port_no'       => $request->port_no,
+            'buying_price'  => $request->buying_price,
+            'selling_price' => $request->selling_price,
+            'quantity'      => $request->quantity,
+            'supplier_id'   => $request->supplier_id,
         ]);
+
+        $brand = Brand::where('id', $request->brand_id)->first();
+
+        $account = SupplierAccount::where('supplier_id', $request->supplier_id)->latest('created_at')->first();
+
+        if(date('Y-m-d', strtotime($request->created_at)) == date('Y-m-d')) {
+            $account->update([
+                'description' =>  $account->description . ' ' . $request->quantity . ' ' . $request->name . ' ' . $brand->name_en . ' <br>',
+                'amount' => $account->amount + ($request->quantity * $request->buying_price),
+            ]);
+        } else {
+            $account = SupplierAccount::create([
+                'supplier_id' => $request->supplier_id,
+                'description' => $request->quantity . ' ' . $request->name . ' ' . $brand->name_en . ' <br>',
+                'amount'      => ($request->quantity * $request->buying_price),
+                'paid'        =>  0,
+                'remain'      => ($request->quantity * $request->buying_price),
+            ]);
+        }
 
         if($product)
             return response(200);
@@ -76,12 +101,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        $types = Type::all();
-        $companies = Company::all();
-        $product = Product::find($id);
-
-        return view('products.edit', compact('types', 'companies', 'product'));
+    public function edit(Product $product) {
+        $types     = Type::all();
+        $brands    = Brand::all();
+        $suppliers = Supplier::all();
+        return view('products.edit', compact('types', 'brands', 'suppliers', 'product'));
     }
 
     /**
@@ -91,8 +115,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id) {
-        $data      = $request->input();
+    public function update(ProductRequest $request, Product $product) {
+        $data = $request->input();
+
         if($request->hasFile('image')) {
             $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
             request()->image->move(public_path('images/uploaded'), $imageName);
@@ -101,13 +126,17 @@ class ProductController extends Controller
             $imageName = $product->image;
         }
 
-        $product = Product::where('id', $id)->update([
-            'name'        => $data['name'],
-            'image'       => $imageName,
-            'description' => $data['description'],
-            'type_id'     => $data['type_id'],
-            'company_id'  => $data['company_id'],
-            'new_product' => $data['new_product'] != null ? $data['new_product'] : 0
+        $product = Product::create([
+            'name'          => $request->name,
+            'description'   => $request->description,
+            'image'         => $imageName,
+            'brand_id'      => $request->brand_id,
+            'type_id'       => $request->type_id,
+            'port_no'       => $request->port_no,
+            'buying_price'  => $request->buying_price,
+            'selling_price' => $request->selling_price,
+            'quantity'      => $request->quantity,
+            'supplier_id'   => $request->supplier_id,
         ]);
 
         if($product)

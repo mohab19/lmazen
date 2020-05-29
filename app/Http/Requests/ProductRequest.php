@@ -24,11 +24,16 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_id' => 'required|numeric',
-            'company_id' => 'required|numeric',
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'image' => 'required_without:old_image|image|mimes:jpeg,jpg,png,gif'
+            'type_id'       => 'required|numeric',
+            'brand_id'      => 'required|numeric',
+            'supplier_id'   => 'required|numeric',
+            'name'          => 'required|string|max:255',
+            'description'   => 'required|string|max:255',
+            'image'         => 'required_without:old_image|image|mimes:jpeg,jpg,png,gif',
+            'buying_price'  => 'required|numeric',
+            'selling_price' => 'required|numeric',
+            'port_no'       => 'required|string',
+            'quantity'      => 'required|numeric',
         ];
     }
 }

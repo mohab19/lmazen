@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SupplierRequest;
 use Illuminate\Http\Request;
+use App\SupplierAccount;
 use App\Supplier;
 
 class SupplierController extends Controller
@@ -48,7 +49,8 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        return view('suppliers.show', compact('supplier'));
+        $supplierAccount = SupplierAccount::where('supplier_id', $supplier->id)->get();
+        return view('suppliers.show', compact('supplier', 'supplierAccount'));
     }
 
     /**

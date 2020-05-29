@@ -24,9 +24,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$this->id,
-            'password' => 'sometimes|required|string|min:6|confirmed',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users,email,'.$this->id,
+            'mobile'   => 'numeric|digits_between:11,14',
+            'salary'   => 'numeric',
+            'password' => 'string|min:6|confirmed',
         ];
     }
 }

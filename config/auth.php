@@ -18,10 +18,10 @@ return [
         'passwords' => 'users',
     ],
 
-    'admins' => [
+    /*'admins' => [
         'driver' => 'eloquent',
         'model' => App\Admin::class,
-    ],
+    ],*/
 
     /*
     |--------------------------------------------------------------------------
@@ -54,11 +54,6 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
-        ],
-        'admin-api' => [
-            'driver' => 'token',
-            'provider' => 'admins',
-            'hash' => false,
         ],
     ],
 
