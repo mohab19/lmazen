@@ -37,7 +37,7 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TypeRequest $request) {
+    public function store($lang, TypeRequest $request) {
         $type = Type::create($request->all());
     }
 
@@ -47,7 +47,7 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $type) {
+    public function show($lang, Type $type) {
         return view('types.show', compact('type'));
     }
 
@@ -57,7 +57,7 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type) {
+    public function edit($lang, Type $type) {
         $categories = Category::all();
         return view('types.edit', compact('type', 'categories'));
     }
@@ -69,7 +69,7 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(TypeRequest $request, Type $type) {
+    public function update($lang, TypeRequest $request, Type $type) {
         $type->update($request->all());
     }
 
@@ -79,7 +79,7 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $type) {
+    public function destroy($lang, Type $type) {
         $products = Product::where('type_id', $type->id)->delete();
         $type->delete();
     }

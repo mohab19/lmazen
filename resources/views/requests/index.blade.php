@@ -18,7 +18,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">
                                     {{ Lang::get('main.dashboard') }}
                                 </a>
                             </li>

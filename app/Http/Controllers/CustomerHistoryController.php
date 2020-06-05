@@ -35,7 +35,7 @@ class CustomerHistoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerHistoryRequest $request)
+    public function store($lang, CustomerHistoryRequest $request)
     {
         $product = Product::where('id', $request->product_id)->first();
 
@@ -55,7 +55,7 @@ class CustomerHistoryController extends Controller
      * @param  \App\CustomerHistory  $customerHistory
      * @return \Illuminate\Http\Response
      */
-    public function show(CustomerHistory $customerHistory)
+    public function show($lang, CustomerHistory $customerHistory)
     {
         return view('customers.show');
     }
@@ -66,7 +66,7 @@ class CustomerHistoryController extends Controller
      * @param  \App\CustomerHistory  $customerHistory
      * @return \Illuminate\Http\Response
      */
-    public function edit(CustomerHistory $customerHistory)
+    public function edit($lang, CustomerHistory $customerHistory)
     {
         //
     }
@@ -78,7 +78,7 @@ class CustomerHistoryController extends Controller
      * @param  \App\CustomerHistory  $customerHistory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CustomerHistory $customerHistory)
+    public function update($lang, Request $request, CustomerHistory $customerHistory)
     {
         $history = $customerHistory->update(['paid' => 1]);
         return 200;
@@ -90,7 +90,7 @@ class CustomerHistoryController extends Controller
      * @param  \App\CustomerHistory  $customerHistory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CustomerHistory $customerHistory)
+    public function destroy($lang, CustomerHistory $customerHistory)
     {
         //
     }

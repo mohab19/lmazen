@@ -15,7 +15,7 @@
                     <small>@lang('main.view')</small>
                 </h1>
                 @auth('admin')
-                <a href="{{ URL('admin/products/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
+                <a href="{{ URL( app()->getLocale() . '/admin/products/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
                     @lang('products.add_new')
                     <i class="fa fa-plus"></i>
                 </a>
@@ -24,7 +24,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">
                                     @lang('main.dashboard')
                                 </a>
                             </li>
@@ -92,7 +92,7 @@
                                                 <td>{{$product->quantity}}</td>
                                                 <td>
                                                     @auth('admin')
-                                                    <a class="btn btn-success" href="{{URL('admin/products/' . $product->id . '/edit')}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-success" href="{{URL( app()->getLocale() . '/admin/products/' . $product->id . '/edit')}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <span class="delete_this btn btn-danger" data-id="{{$product->id}}" data-type="Product" data-url="products" style="padding: 5px 10px;">

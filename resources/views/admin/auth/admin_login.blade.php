@@ -37,7 +37,7 @@
     <div class="splash-container">
         <div class="card">
             <div class="card-header text-center">
-                <a href="{{route('home')}}">
+                <a href="#">
                     <img class="logo-img" src="{{asset('images/logo-black.png')}}" width="200" height="100" alt="logo">
                 </a>
                 <span class="splash-description">Please enter your Admin information</span>

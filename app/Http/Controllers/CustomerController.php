@@ -35,7 +35,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request)
+    public function store($lang, CustomerRequest $request)
     {
         return Customer::create($request->all());
     }
@@ -46,7 +46,7 @@ class CustomerController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($lang, Customer $customer)
     {
         //$supplierAccount = SupplierAccount::where('supplier_id', $supplier->id)->get();
         return view('customers.show', compact('customer'));
@@ -58,7 +58,7 @@ class CustomerController extends Controller
      * @param  \App\Customer  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($lang, Customer $customer)
     {
         return view('customers.edit', compact('customer'));
     }
@@ -70,7 +70,7 @@ class CustomerController extends Controller
      * @param  \App\Customer  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerRequest $request, Customer $customer)
+    public function update($lang, CustomerRequest $request, Customer $customer)
     {
         return $customer->update($request->all());
     }
@@ -81,7 +81,7 @@ class CustomerController extends Controller
      * @param  \App\Customer  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($lang, Customer $customer)
     {
         return $customer->delete();
     }

@@ -14,7 +14,7 @@
                 <h1 class="page-title"> {{ Lang::get('main.types') }}
                     <small>{{ Lang::get('main.view') }}</small>
                 </h1>
-                <a href="{{ URL('admin/types/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
+                <a href="{{ URL( app()->getLocale() . '/admin/types/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
                     {{ Lang::get('main.add_new') }}
                     <i class="fa fa-plus"></i>
                 </a>
@@ -22,7 +22,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">
+                                <a href="{{URL(' app()->getLocale() . /admin')}}" class="breadcrumb-link">
                                     {{ Lang::get('main.dashboard') }}
                                 </a>
                             </li>
@@ -71,10 +71,10 @@
                                                 </td>
                                                 <td>{{$product->Company->name}}</td>
                                                 <td>
-                                                    <a class="btn btn-primary" href="{{URL('admin/products/' . $product->id)}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-primary" href="{{URL( app()->getLocale() . '/admin/products/' . $product->id)}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a class="btn btn-success" href="{{URL('admin/products/' . $product->id . '/edit')}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-success" href="{{URL( app()->getLocale() . '/admin/products/' . $product->id . '/edit')}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <span class="delete_this btn btn-danger" data-id="{{$product->id}}" style="padding: 5px 10px;">
@@ -105,30 +105,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('JavaScript')
-<!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script>
-    $(document).ready(function () {
-        var token = "{{ csrf_token() }}";
-
-        $(document).on('click', '.delete_this', function (event) {
-            if (confirm("Are you sure you want to delete this Product?")) {
-                var deleted_id = $(this).attr("data-id");
-                event.preventDefault();
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ URL('admin/types') }}/" + deleted_id,
-                    data: {_method: 'DELETE', _token: token, "id": deleted_id},
-                    success: function (response) {
-                        $(".delete_"+deleted_id).remove();
-                        $("#alert-div").parent().addClass('alert-success');
-                        $('#alert-div').html('<li> Product Deleted successfully! </li>');
-                    }
-                });
-            }
-        });
-    });
-    </script>
 @endsection

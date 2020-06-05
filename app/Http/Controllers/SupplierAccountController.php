@@ -33,7 +33,7 @@ class SupplierAccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         //
     }
@@ -44,7 +44,7 @@ class SupplierAccountController extends Controller
      * @param  \App\SupplierAccount  $supplierAccount
      * @return \Illuminate\Http\Response
      */
-    public function show(SupplierAccount $supplierAccount)
+    public function show($lang, SupplierAccount $supplierAccount)
     {
         //
     }
@@ -55,7 +55,7 @@ class SupplierAccountController extends Controller
      * @param  \App\SupplierAccount  $supplierAccount
      * @return \Illuminate\Http\Response
      */
-    public function edit(SupplierAccount $supplierAccount)
+    public function edit($lang, SupplierAccount $supplierAccount)
     {
         //
     }
@@ -67,7 +67,7 @@ class SupplierAccountController extends Controller
      * @param  \App\SupplierAccount  $supplierAccount
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SupplierAccount $supplierAccount)
+    public function update($lang, Request $request, SupplierAccount $supplierAccount)
     {
         if($request->paid > $supplierAccount->remain) {
             return response()
@@ -86,7 +86,7 @@ class SupplierAccountController extends Controller
      * @param  \App\SupplierAccount  $supplierAccount
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SupplierAccount $supplierAccount)
+    public function destroy($lang, SupplierAccount $supplierAccount)
     {
         //
     }

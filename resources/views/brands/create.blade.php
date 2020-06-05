@@ -23,7 +23,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>@lang('brands.brands')</span></li>
                         </ol>
@@ -53,7 +53,7 @@
                             <form id="form">
                                 @csrf
                                 <input type="hidden" id="form_name" value="Brand" data-id="brands">
-                                <input type="hidden" id="route" value="{{route('brands.store')}}">
+                                <input type="hidden" id="route" value="{{route('brands.store',  app()->getLocale())}}">
                                 <div class="form-group">
                                     <label for="name_ar" class="col-form-label">@lang('brands.name_ar')</label>
                                     <input type="text" name="name_ar" class="form-control" required>

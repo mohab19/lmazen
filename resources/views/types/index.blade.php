@@ -14,7 +14,7 @@
                 <h1 class="page-title">@lang('types.types')
                     <small>@lang('main.view')</small>
                 </h1>
-                <a href="{{ URL('admin/types/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
+                <a href="{{ URL( app()->getLocale() . '/admin/types/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
                     @lang('types.add_new')
                     <i class="fa fa-plus"></i>
                 </a>
@@ -67,10 +67,10 @@
                                             <td>{{$type['name_'.Lang::locale()]}}</td>
                                             <td>{{$type->Category['name_'.Lang::locale()]}}</td>
                                             <td class="@if(Lang::locale() == 'ar') text-left @else text-right @endif">
-                                                <a class="btn btn-primary" href="{{URL('admin/types/' . $type->id)}}" style="padding: 5px 10px;">
+                                                <a class="btn btn-primary" href="{{URL( app()->getLocale() . '/admin/types/' . $type->id)}}" style="padding: 5px 10px;">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a class="btn btn-success" href="{{URL('admin/types/' . $type->id . '/edit')}}" style="padding: 5px 10px;">
+                                                <a class="btn btn-success" href="{{URL( app()->getLocale() . '/admin/types/' . $type->id . '/edit')}}" style="padding: 5px 10px;">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <span class="delete_this btn btn-danger" data-id="{{$type->id}}" data-type="Type" data-url="types" style="padding: 5px 10px;">

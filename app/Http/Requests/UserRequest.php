@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'email'    => 'required|string|email|max:255|unique:users,email,'.$this->id,
             'mobile'   => 'numeric|digits_between:11,14',
             'salary'   => 'numeric',
-            'password' => 'string|min:6|confirmed',
+            'password' => 'nullable|string|min:6|confirmed',
         ];
     }
 }

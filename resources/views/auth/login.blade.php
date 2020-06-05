@@ -40,7 +40,7 @@
                 <img class="logo-img" src="{{asset('images/logo-black.png')}}" width="200" height="100" alt="logo">
             </a>
             <span class="splash-description">Please enter your user information.</span>
-            <a href="{{route('admin-login')}}"><< Login as a Admin >></a>
+            <a href="{{route('admin-login', app()->getLocale())}}"><< Login as a Admin >></a>
         </div>
             <div class="card-body">
                 @if ($errors->has('verified'))

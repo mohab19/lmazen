@@ -33,7 +33,7 @@ class UserLogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         //
     }
@@ -44,7 +44,7 @@ class UserLogController extends Controller
      * @param  \App\UserLog  $userLog
      * @return \Illuminate\Http\Response
      */
-    public function show(UserLog $userLog)
+    public function show($lang, UserLog $userLog)
     {
         //
     }
@@ -55,7 +55,7 @@ class UserLogController extends Controller
      * @param  \App\UserLog  $userLog
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserLog $userLog)
+    public function edit($lang, UserLog $userLog)
     {
         //
     }
@@ -67,7 +67,7 @@ class UserLogController extends Controller
      * @param  \App\UserLog  $userLog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserLog $userLog)
+    public function update($lang, Request $request, UserLog $userLog)
     {
         //
     }
@@ -78,7 +78,7 @@ class UserLogController extends Controller
      * @param  \App\UserLog  $userLog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserLog $userLog)
+    public function destroy($lang, UserLog $userLog)
     {
         //
     }

@@ -34,7 +34,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request) {
+    public function store($lang, CategoryRequest $request) {
         $category = Category::create($request->all());
     }
 
@@ -44,7 +44,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category) {
+    public function show($lang, Category $category) {
         return view('categories.show', compact('category'));
     }
 
@@ -54,7 +54,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category) {
+    public function edit($lang, Category $category) {
         return view('categories.edit', compact('category'));
     }
 
@@ -65,7 +65,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category) {
+    public function update($lang, CategoryRequest $request, Category $category) {
         $category->update($request->all());
     }
 
@@ -75,7 +75,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category) {
+    public function destroy($lang, Category $category) {
         $category->delete();
     }
 

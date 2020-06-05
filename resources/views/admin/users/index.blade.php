@@ -13,14 +13,14 @@
                 <h1 class="page-title">@lang('users.users')
                     <small>@lang('main.view')</small>
                 </h1>
-                <a href="{{ URL('admin/users/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">@lang('users.add_new')
+                <a href="{{ URL( app()->getLocale() . '/admin/users/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">@lang('users.add_new')
                     <i class="fa fa-plus"></i>
                 </a>
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>@lang('users.users')</span></li>
                         </ol>
@@ -62,7 +62,7 @@
                                                 <td>{{$user->mobile}}</td>
                                                 <td>{{$user->salary}}</td>
                                                 <td>
-                                                    <a class="btn btn-success" href="{{URL('admin/users/' . $user->id . '/edit')}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-success" href="{{ URL( app()->getLocale() . '/admin/users/' . $user->id . '/edit')}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <span class="delete_this btn btn-danger" data-id="{{$user->id}}" data-type="User" data-url="users" style="padding: 5px 10px;">

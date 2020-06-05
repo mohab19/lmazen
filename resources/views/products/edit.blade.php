@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">{{ Lang::get('main.dashboard') }}</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">{{ Lang::get('main.dashboard') }}</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>{{ Lang::get('main.products') }}</span></li>
                         </ol>
@@ -47,7 +47,7 @@
                             <form id="form" class="row" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" id="route" value="{{route('products.update', $product->id)}}">
+                                <input type="hidden" id="route" value="{{route('products.update', [ app()->getLocale(), $product->id])}}">
                                 <input type="hidden" id="form_name" value="Product" data-id="products">
                                 <div class="form-group col-sm-6">
                                     <select name="type_id" class="form-control" required>
@@ -115,7 +115,7 @@
                             </form>
                             <div class="row">
                                 <div class="col-md-6 image">
-                                    <img src="{{URL('images/uploaded') . '/' . $product->image}}" width="200" height="180" alt="">
+                                    <img src="{{URL( app()->getLocale() . '/images/uploaded') . '/' . $product->image}}" width="200" height="180" alt="">
                                 </div>
                             </div>
                         </div>

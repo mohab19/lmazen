@@ -19,7 +19,7 @@
                     <td>{{$account->paid}}</td>
                     <td>{{$account->created_at}}</td>
                     <td class="@if(Lang::locale() == 'ar') text-left @else text-right @endif">
-                        <a class="btn btn-primary" href="{{URL('admin/suppliers/' . $account->supplier_id)}}" style="padding: 5px 10px;">
+                        <a class="btn btn-primary" href="{{URL( app()->getLocale() . '/admin/suppliers/' . $account->supplier_id)}}" style="padding: 5px 10px;">
                             <i class="fas fa-eye"></i>
                         </a>
                     </td>

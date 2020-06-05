@@ -19,14 +19,14 @@
                 <h1 class="page-title">@lang('categories.categories')
                     <small>@lang('main.view')</small>
                 </h1>
-                <a href="{{ URL('admin/categories/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">@lang('main.add_new')
+                <a href="{{ URL( app()->getLocale() . '/admin/categories/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">@lang('main.add_new')
                     <i class="fa fa-plus"></i>
                 </a>
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>@lang('categories.categories')</span></li>
                         </ol>
@@ -67,10 +67,10 @@
                                                 <td>{{$category->id}}</td>
                                                 <td>{{$category['name_'.Lang::locale()]}}</td>
                                                 <td class="@if(Lang::locale() == 'ar') text-left @else text-right @endif">
-                                                    <a class="btn btn-primary" href="{{URL('admin/categories/' . $category->id)}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-primary" href="{{URL( app()->getLocale() . '/admin/categories/' . $category->id)}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a class="btn btn-success" href="{{URL('admin/categories/' . $category->id . '/edit')}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-success" href="{{URL( app()->getLocale() . '/admin/categories/' . $category->id . '/edit')}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <span class="delete_this btn btn-danger" data-id="{{$category->id}}" data-type="Category" data-url="categories" style="padding: 5px 10px;">

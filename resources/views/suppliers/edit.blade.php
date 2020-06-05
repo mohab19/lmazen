@@ -23,7 +23,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>@lang('suppliers.suppliers')</span></li>
                         </ol>
@@ -54,7 +54,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" id="form_name" value="Supplier" data-id="suppliers">
-                                <input type="hidden" id="route" value="{{route('suppliers.update', $supplier->id)}}">
+                                <input type="hidden" id="route" value="{{route('suppliers.update', [ app()->getLocale(), $supplier->id])}}">
                                 <div class="form-group">
                                     <label for="name" class="col-form-label">@lang('suppliers.name')</label>
                                     <input type="text" name="name" class="form-control" value="{{$supplier->name}}" required>

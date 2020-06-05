@@ -35,7 +35,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BrandRequest $request)
+    public function store($lang, BrandRequest $request)
     {
         $brand = Brand::create($request->all());
     }
@@ -46,7 +46,7 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show($lang, Brand $brand)
     {
         return view('brands.show');
     }
@@ -57,7 +57,7 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit($lang, Brand $brand)
     {
         return view('brands.edit', compact('brand'));
     }
@@ -69,7 +69,7 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandRequest $request, Brand $brand)
+    public function update($lang, BrandRequest $request, Brand $brand)
     {
         $brand->update($request->all());
     }
@@ -80,7 +80,7 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy($lang, Brand $brand)
     {
         $brand->delete();
     }

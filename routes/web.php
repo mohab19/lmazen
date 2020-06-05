@@ -16,6 +16,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin-login');
 Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin-login.submit');
 
+Route::redirect('/', 'en');
 Route::group(['prefix' => '{language}'], function () {
     Route::group(['middleware' => ['auth:web,admin']], function () {
         /*** home page admin route ***/

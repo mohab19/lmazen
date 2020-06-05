@@ -19,14 +19,14 @@
                 <h1 class="page-title">@lang('suppliers.suppliers')
                     <small>@lang('main.view')</small>
                 </h1>
-                <a href="{{ URL('admin/suppliers/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">@lang('main.add_new')
+                <a href="{{ URL( app()->getLocale() . '/admin/suppliers/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">@lang('main.add_new')
                     <i class="fa fa-plus"></i>
                 </a>
                 <div class="page-breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>@lang('suppliers.suppliers')</span></li>
                         </ol>
@@ -73,10 +73,10 @@
                                                 <td>{{$supplier->email}}</td>
                                                 <td>{{$supplier->address}}</td>
                                                 <td class="@if(Lang::locale() == 'ar') text-left @else text-right @endif">
-                                                    <a class="btn btn-primary" href="{{URL('admin/suppliers/' . $supplier->id)}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-primary" href="{{URL( app()->getLocale() . '/admin/suppliers/' . $supplier->id)}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a class="btn btn-success" href="{{URL('admin/suppliers/' . $supplier->id . '/edit')}}" style="padding: 5px 10px;">
+                                                    <a class="btn btn-success" href="{{URL( app()->getLocale() . '/admin/suppliers/' . $supplier->id . '/edit')}}" style="padding: 5px 10px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <span class="delete_this btn btn-danger" data-id="{{$supplier->id}}" data-type="Supplier" data-url="suppliers" style="padding: 5px 10px;">

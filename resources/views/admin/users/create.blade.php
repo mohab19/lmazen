@@ -28,10 +28,10 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL((app()->getLocale().'/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{URL('admin/users')}}" class="breadcrumb-link"><span>@lang('users.users')</span></a>
+                                <a href="{{URL((app()->getLocale().'/admin/users')}}" class="breadcrumb-link"><span>@lang('users.users')</span></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">@lang('main.add')</li>
                         </ol>
@@ -56,7 +56,7 @@
                     <form id="form">
                         @csrf
                         <input type="hidden" id="form_name" value="User" data-id="users">
-                        <input type="hidden" id="route" value="{{route('users.store')}}">
+                        <input type="hidden" id="route" value="{{route('users.store', app()->getLocale())}}">
                         <div class="form-group">
                             <label for="name" class="col-form-label">@lang('users.name')</label>
                             <input type="text" name="name" class="form-control" required>

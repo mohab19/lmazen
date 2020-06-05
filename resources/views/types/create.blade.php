@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">@lang('main.dashboard')</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page"><span>@lang('types.types')</span></li>
                         </ol>
@@ -46,7 +46,7 @@
                             </div>
                             <form id="form" action="post">
                                 @csrf
-                                <input type="hidden" id="route" value="{{route('types.store')}}">
+                                <input type="hidden" id="route" value="{{route('types.store',  app()->getLocale())}}">
                                 <input type="hidden" id="form_name" value="Type" data-id="types">
                                 <select name="category_id" id="type_categories"  class="form-control" required>
                                     <option value="0" disabled selected>Select Category: </option>

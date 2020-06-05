@@ -36,7 +36,7 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SupplierRequest $request)
+    public function store($lang, SupplierRequest $request)
     {
         return Supplier::create($request->all());
     }
@@ -47,7 +47,7 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show($lang, Supplier $supplier)
     {
         $supplierAccount = SupplierAccount::where('supplier_id', $supplier->id)->get();
         return view('suppliers.show', compact('supplier', 'supplierAccount'));
@@ -59,7 +59,7 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplier $supplier)
+    public function edit($lang, Supplier $supplier)
     {
         return view('suppliers.edit', compact('supplier'));
     }
@@ -71,7 +71,7 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(SupplierRequest $request, Supplier $supplier)
+    public function update($lang, SupplierRequest $request, Supplier $supplier)
     {
         return $supplier->update($request->all());
     }
@@ -82,7 +82,7 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy($lang, Supplier $supplier)
     {
         return $supplier->delete();
     }

@@ -34,7 +34,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store($lang, UserRequest $request)
     {
         $user = User::create([
             'name'     => $request->name,
@@ -47,7 +47,7 @@ class UserController extends Controller
         return 200;
     }
 
-    public function activation(User $user) {
+    public function activation($lang, User $user) {
         try {
             if($user->verified) {
                 $update = User::where('id', $user->id)->update(['verified' => 0]);
@@ -67,7 +67,7 @@ class UserController extends Controller
      * @param  \App\UserRequest  $userRequest
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user) {
+    public function edit($lang, User $user) {
         return view('admin.users.edit', compact('user'));
     }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
      * @param  \App\UserRequest  $userRequest
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update($lang, UserRequest $request, User $user)
     {
         $user->update([
             'name'     => $request->name,
@@ -95,7 +95,7 @@ class UserController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user) {
+    public function destroy($lang, User $user) {
         try {
             $user->delete();
             return response(200);

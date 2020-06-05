@@ -19,7 +19,7 @@
                 <h1 class="page-title"> {{ Lang::get('main.categories') }}
                     <small>{{ Lang::get('main.view') }}</small>
                 </h1>
-                <a href="{{ URL('admin/categories/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
+                <a href="{{ URL( app()->getLocale() . 'admin/categories/create') }}" class="btn btn-primary" id="sample_editable_1_new" style="float: right;">
                     {{ Lang::get('main.add_new') }}
                     <i class="fa fa-plus"></i>
                 </a>
@@ -27,7 +27,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{URL('/admin')}}" class="breadcrumb-link">
+                                <a href="{{URL( app()->getLocale() . '/admin')}}" class="breadcrumb-link">
                                     {{ Lang::get('main.dashboard') }}
                                 </a>
                             </li>
@@ -107,30 +107,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('JavaScript')
-<!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script>
-    $(document).ready(function () {
-        var token = "{{ csrf_token() }}";
-
-        $(document).on('click', '.delete_this', function (event) {
-            if (confirm("Are you sure you want to delete this Type? This will result of deleting all the Products under it!")) {
-                var deleted_id = $(this).attr("data-id");
-                event.preventDefault();
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ URL('admin/types') }}/" + deleted_id,
-                    data: {_method: 'DELETE', _token: token, "id": deleted_id},
-                    success: function (response) {
-                        $(".delete_"+deleted_id).remove();
-                        $("#alert-div").parent().addClass('alert-success');
-                        $('#alert-div').html('<li> Type Deleted successfully! </li>');
-                    }
-                });
-            }
-        });
-    });
-    </script>
 @endsection

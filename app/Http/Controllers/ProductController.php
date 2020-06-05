@@ -42,7 +42,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request) {
+    public function store($lang, ProductRequest $request) {
         $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
         request()->image->move(public_path('images/products'), $imageName);
 
@@ -90,7 +90,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($lang, Product $product)
     {
         //
     }
@@ -101,7 +101,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product) {
+    public function edit($lang, Product $product) {
         $types     = Type::all();
         $brands    = Brand::all();
         $suppliers = Supplier::all();
@@ -115,7 +115,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product) {
+    public function update($lang, ProductRequest $request, Product $product) {
         $data = $request->input();
 
         if($request->hasFile('image')) {
@@ -151,8 +151,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        $product = Product::find($id);
+    public function destroy($lang, Product $product) {
         $product->delete();
 
         if($product)

@@ -7,13 +7,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="base_url" content="{{ url('/') }}">
+        <meta name="base_url" content="{{ url('/'. app()->getLocale()) }}">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('assets/css/components.min.css') }}" id="style_components">
         <link rel="stylesheet" href="{{URL('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{URL('assets/vendor/fonts/circular-std/style.css')}}">
+        @if(App::getLocale() == 'ar')
+        <link rel="stylesheet" href="{{URL('assets/libs/css/styleAr.css')}}">
+        @else
         <link rel="stylesheet" href="{{URL('assets/libs/css/style.css')}}">
+        @endif
         <link rel="stylesheet" href="{{URL('assets/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
         <link rel="stylesheet" href="{{URL('assets/vendor/charts/chartist-bundle/chartist.css')}}">
         <link rel="stylesheet" href="{{URL('assets/vendor/charts/morris-bundle/morris.css')}}">
