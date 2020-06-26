@@ -52,7 +52,7 @@
                             </div>
                             <form id="reporting" class="row" method="post">
                                 @csrf
-                                <div class="input-group col-md-5">
+                                <div class="input-group col-md-4">
                                     <select class="form-control" name="type" id="report-type">
                                         <option selected>Choose...</option>
                                         <option value="income">@lang('reports.income')</option>
@@ -60,12 +60,11 @@
                                         <option value="best_selling">@lang('reports.best_selling')</option>
                                     </select>
                                 </div>
-                                <div class="input-group col-md-5">
-                                    <select class="form-control"  name="period" id="report-period">
-                                        <option selected>Choose...</option>
-                                        <option value="1">@lang('reports.weekly')</option>
-                                        <option value="2">@lang('reports.monthly')</option>
-                                    </select>
+                                <div class="input-group col-md-3">
+                                    <input type="date" class="form-control" name="time_from" value="">
+                                </div>
+                                <div class="input-group col-md-3">
+                                    <input type="date" class="form-control" name="time_to" value="">
                                 </div>
                                 <button type="submit" class="btn btn-primary col-md-2">Generate</button>
                             </form>
@@ -79,6 +78,19 @@
                     <div class="card border-3 border-top border-top-primary">
                         <div class="card-body">
                             <h4 class="text-muted">@lang('reports.total')</h4>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"></h1>
+                            </div>
+                            <!--<div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                                <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">10%</span>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12" id="outcome" style="display: none;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h4 class="text-muted">@lang('reports.outcome')</h4>
                             <div class="metric-value d-inline-block">
                                 <h1 class="mb-1"></h1>
                             </div>

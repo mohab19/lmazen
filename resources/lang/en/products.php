@@ -12,6 +12,7 @@ return [
     'supplier'        => 'Supplier',
     'type'            => 'Type',
     'brand'           => 'Brand',
+    'model'           => 'Model',
     'description'     => 'Description',
     'buying_price'    => 'Buying Price',
     'selling_price'   => 'Selling Price',

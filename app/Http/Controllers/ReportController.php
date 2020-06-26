@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\CustomerHistory;
 use App\SupplierAccount;
 use App\Report;
+use App\Expense;
 
 class ReportController extends Controller
 {
@@ -26,14 +27,9 @@ class ReportController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->period == '1') {
-            $date = "-7 days";
-        } elseif($request->period == '2') {
-            $date = "-30 days";
-        }
         switch ($request->type) {
             case 'income':
-                $reports = CustomerHistory::whereBetween('created_at', [date("Y-m-d", strtotime($date)), date("Y-m-d")])->where('paid', 1)->get();
+                $reports = CustomerHistory::whereBetween('created_at', [$request->time_from, $request->time_to])->where('paid', 1)->get();
                 $html = \View::make('reports.income', compact('reports'))->render();
                 $response['html'] = $html;
 
@@ -44,10 +40,17 @@ class ReportController extends Controller
                 $response['total'] = $total;
 
                 $paid = 0;
-                $accounts = SupplierAccount::whereBetween('created_at', [date("Y-m-d", strtotime($date)), date("Y-m-d")])->get();
+                $accounts = SupplierAccount::whereBetween('created_at', [$request->time_from, $request->time_to])->get();
                 foreach ($accounts as $key => $row) {
                     $paid += $row->paid;
                 }
+
+                $expenses = Expense::whereBetween('created_at', [$request->time_from, $request->time_to])->get();
+                foreach ($expenses as $key => $row) {
+                    $paid += $row->amount;
+                }
+
+                $response['outcome']  = $paid;
                 $response['subtotal'] = $total - $paid;
 
                 return $response;
@@ -55,15 +58,20 @@ class ReportController extends Controller
                 break;
             case 'outcome':
                 $paid = 0;
-                $accounts = SupplierAccount::whereBetween('created_at', [date("Y-m-d", strtotime($date)), date("Y-m-d")])->get();
 
-                $html = \View::make('reports.outcome', compact('accounts'))->render();
-                $response['html'] = $html;
-
+                $accounts = SupplierAccount::whereBetween('created_at', [$request->time_from, $request->time_to])->get();
                 foreach ($accounts as $key => $row) {
                     $paid += $row->paid;
                 }
+
+                $expenses = Expense::whereBetween('created_at', [$request->time_from, $request->time_to])->get();
+                foreach ($expenses as $key => $row) {
+                    $paid += $row->amount;
+                }
+
                 $response['total'] = $paid;
+                $html = \View::make('reports.outcome', compact('accounts'))->render();
+                $response['html'] = $html;
 
                 return $response;
 

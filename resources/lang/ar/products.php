@@ -11,6 +11,7 @@ return [
     'supplier'        => 'المورد',
     'type'            => 'النوع',
     'brand'           => 'الماركة',
+    'model'           => 'الموديل',
     'description'     => 'الوصف',
     'buying_price'    => 'سعر الشراء',
     'selling_price'   => 'سعر البيع',

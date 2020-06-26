@@ -57,6 +57,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6">
+                                    <label for="type" class="col-form-label">@lang('products.type')</label>
                                     <select name="type_id" class="form-control" required>
                                         <option value="0" disabled selected>Select Type: </option>
                                         @foreach($types as $key => $type)
@@ -65,6 +66,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6">
+                                    <label for="name" class="col-form-label">@lang('products.brand')</label>
                                     <select name="brand_id" class="form-control" required>
                                         <option value="0" disabled selected>Select Brand: </option>
                                         @foreach($brands as $key => $brand)
@@ -73,10 +75,20 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6">
+                                    <label for="name" class="col-form-label">@lang('products.model')</label>
+                                    <select name="model_id" class="form-control" required>
+                                        <option value="0" disabled selected>Select Model: </option>
+                                        @foreach($models as $key => $model)
+                                        <option value="{{$model->id}}">{{$model['name_'.Lang::locale()]}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
                                     <label for="name" class="col-form-label">@lang('products.name')</label>
                                     <input type="text" name="name" class="form-control" required>
                                 </div>
-                                <div class="form-group col-sm-6 mt-4">
+                                <div class="form-group col-sm-6">
+                                    <label for="name" class="col-form-label">@lang('products.supplier')</label>
                                     <select name="supplier_id" class="form-control" required>
                                         <option value="0" disabled selected>Select Supplier: </option>
                                         @foreach($suppliers as $key => $supplier)

@@ -50,6 +50,7 @@
                                 <input type="hidden" id="route" value="{{route('products.update', [ app()->getLocale(), $product->id])}}">
                                 <input type="hidden" id="form_name" value="Product" data-id="products">
                                 <div class="form-group col-sm-6">
+                                    <label for="type" class="col-form-label">@lang('products.type')</label>
                                     <select name="type_id" class="form-control" required>
                                         <option value="0" disabled>Select Type: </option>
                                         @foreach($types as $key => $type)
@@ -58,6 +59,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6">
+                                    <label for="type" class="col-form-label">@lang('products.brand')</label>
                                     <select name="brand_id" class="form-control" required>
                                         <option value="0" disabled>Select Brand: </option>
                                         @foreach($brands as $key => $brand)
@@ -66,10 +68,20 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6">
+                                    <label for="type" class="col-form-label">@lang('products.model')</label>
+                                    <select name="brand_id" class="form-control" required>
+                                        <option value="0" disabled>Select Model: </option>
+                                        @foreach($models as $key => $model)
+                                        <option value="{{$model->id}}" @if($product->model_id == $model->id) selected @endif>{{$model['name_'.Lang::locale()]}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
                                     <label for="name" class="col-form-label">@lang('products.name')</label>
                                     <input type="text" name="name" class="form-control" value="{{$product->name}}" required>
                                 </div>
                                 <div class="form-group col-sm-6 mt-4">
+                                    <label for="type" class="col-form-label">@lang('products.supplier')</label>
                                     <select name="supplier_id" class="form-control" required>
                                         <option value="0" disabled>Select Supplier: </option>
                                         @foreach($suppliers as $key => $supplier)

@@ -10,6 +10,7 @@ use App\Customer;
 use App\Supplier;
 use App\Product;
 use App\Brand;
+use App\Models;
 use App\Type;
 
 class ProductController extends Controller
@@ -36,8 +37,9 @@ class ProductController extends Controller
         $types     = Type::all();
         $brands    = Brand::all();
         $suppliers = Supplier::all();
+        $models    = Models::all();
         $products  = Product::all();
-        return view('products.create', compact('types', 'brands', 'suppliers', 'products'));
+        return view('products.create', compact('types', 'brands', 'suppliers','models', 'products'));
     }
 
     /**
@@ -57,6 +59,7 @@ class ProductController extends Controller
                 'image'         => $imageName,
                 'brand_id'      => $request->brand_id,
                 'type_id'       => $request->type_id,
+                'model_id'      => $request->model_id,
                 'port_no'       => $request->port_no,
                 'buying_price'  => $request->buying_price,
                 'supplier_id'   => $request->supplier_id,
@@ -120,8 +123,9 @@ class ProductController extends Controller
     public function edit($lang, Product $product) {
         $types     = Type::all();
         $brands    = Brand::all();
+        $models    = Models::all();
         $suppliers = Supplier::all();
-        return view('products.edit', compact('types', 'brands', 'suppliers', 'product'));
+        return view('products.edit', compact('types', 'brands', 'suppliers', 'models', 'product'));
     }
 
     /**
@@ -147,6 +151,7 @@ class ProductController extends Controller
             'description'   => $request->description,
             'image'         => $imageName,
             'brand_id'      => $request->brand_id,
+            'model_id'      => $request->model_id,
             'type_id'       => $request->type_id,
             'port_no'       => $request->port_no,
             'buying_price'  => $request->buying_price,
@@ -218,7 +223,7 @@ class ProductController extends Controller
                                ->orWhere('types.name_en', $request->type)
                                ->get();
         }
-        
+
         $customers = Customer::all();
         $brands    = Brand::all();
         $types     = Type::all();

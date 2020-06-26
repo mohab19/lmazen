@@ -33,6 +33,6 @@ class Product extends Model
 
     public function Model()
     {
-        return $this->belongsTo('App\Model');
+        return $this->belongsTo('App\Models');
     }
 }

@@ -87,6 +87,7 @@
                                             <th>@lang('products.supplier')</th>
                                             <th>@lang('products.brand')</th>
                                             <th>@lang('products.type')</th>
+                                            <th>@lang('products.model')</th>
                                             <th>@lang('products.port_no')</th>
                                             @auth('admin')
                                             <th>@lang('products.buying_price')</th>
@@ -108,6 +109,7 @@
                                                 <td>{{$product->Supplier->name}}</td>
                                                 <td>{{$product->Brand['name_'.Lang::locale()]}}</td>
                                                 <td>{{$product->Type['name_'.Lang::locale()]}}</td>
+                                                <td>{{$product->Model['name_'.Lang::locale()]}}</td>
                                                 <td>{{$product->port_no}}</td>
                                                 @auth('admin')
                                                 <td>{{$product->buying_price}}</td>
@@ -137,6 +139,7 @@
                                             <th>@lang('products.supplier')</th>
                                             <th>@lang('products.brand')</th>
                                             <th>@lang('products.type')</th>
+                                            <th>@lang('products.model')</th>
                                             <th>@lang('products.port_no')</th>
                                             @auth('admin')
                                             <th>@lang('products.buying_price')</th>
