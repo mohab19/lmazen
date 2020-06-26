@@ -48,6 +48,14 @@
                                 @csrf
                                 <input type="hidden" id="route" value="{{route('products.store', app()->getLocale())}}">
                                 <input type="hidden" id="form_name" value="Product" data-id="products">
+                                <div class="form-group col-sm-12 mb-3">
+                                    <select name="Product_id" class="form-control" id="existed_product" required>
+                                        <option value="0" disabled selected>@lang('products.existed_product')</option>
+                                        @foreach($products as $key => $product)
+                                        <option value="{{$product->id}}">{{$product->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group col-sm-6">
                                     <select name="type_id" class="form-control" required>
                                         <option value="0" disabled selected>Select Type: </option>

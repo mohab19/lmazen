@@ -1255,6 +1255,7 @@ return [
     'categories'     => 'أصناف',
     'types'          => 'أنواع',
     'brands'         => 'ماركات',
+    'models'         => 'موديلات',
     'products'       => 'منتجات',
     'customers'      => 'الزبائن',
     'suppliers'      => 'الموردين',

@@ -52,6 +52,30 @@
 
                                 </ul>
                             </div>
+                            <form action="{{url(app()->getLocale() . '/admin/get_products')}}" method="post">
+                                @csrf
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <input type="text" name="brand" class="form-control" list="brand" placeholder="@lang('products.search_brand')">
+                                        <datalist name="brand" id="brand">
+                                            @foreach($brands as $key => $brand)
+                                            <option data-id="{{$brand->id}}" value="{{$brand['name_'.Lang::locale()]}}"></option>
+                                            @endforeach
+                                        </datalist>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="type" class="form-control" list="type" placeholder="@lang('products.search_type')">
+                                        <datalist name="type" id="type">
+                                            @foreach($types as $key => $type)
+                                            <option data-id="{{$type->id}}" value="{{$type['name_'.Lang::locale()]}}"></option>
+                                            @endforeach
+                                        </datalist>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary">@lang('products.search')</button>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="table-responsive">
                                 <table id="example" class="table table-striped table-bordered second text-center" style="width:100%">
                                     <thead>
@@ -85,11 +109,11 @@
                                                 <td>{{$product->Brand['name_'.Lang::locale()]}}</td>
                                                 <td>{{$product->Type['name_'.Lang::locale()]}}</td>
                                                 <td>{{$product->port_no}}</td>
-                                                <td>{{$product->buying_price}}</td>
                                                 @auth('admin')
-                                                <td>{{$product->selling_price}}</td>
+                                                <td>{{$product->buying_price}}</td>
                                                 @endauth
-                                                <td>{{$product->quantity}}</td>
+                                                <td>{{$product->ProductHistories->where('quantity', '>', 0)->first()->selling_price}}</td>
+                                                <td>{{$product->ProductHistories->where('quantity', '>', 0)->first()->quantity}}</td>
                                                 <td>
                                                     @auth('admin')
                                                     <a class="btn btn-success" href="{{URL( app()->getLocale() . '/admin/products/' . $product->id . '/edit')}}" style="padding: 5px 10px;">

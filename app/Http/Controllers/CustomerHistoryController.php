@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerHistoryRequest;
 use Illuminate\Http\Request;
 use App\CustomerHistory;
-use App\Product;
+use App\ProductHistory;
 
 class CustomerHistoryController extends Controller
 {
@@ -37,8 +37,8 @@ class CustomerHistoryController extends Controller
      */
     public function store($lang, CustomerHistoryRequest $request)
     {
-        $product = Product::where('id', $request->product_id)->first();
-
+        $product = ProductHistory::where('product_id', $request->product_id)->where('quantity', '>=', 1)->first();
+        
         $customer_history = CustomerHistory::create([
             'product_id'  => $request->product_id,
             'customer_id' => $request->customer_id,
@@ -57,7 +57,7 @@ class CustomerHistoryController extends Controller
      */
     public function show($lang, CustomerHistory $customerHistory)
     {
-        return view('customers.show');
+        return view('customers.bill', compact('customerHistory'));
     }
 
     /**
@@ -81,7 +81,7 @@ class CustomerHistoryController extends Controller
     public function update($lang, Request $request, CustomerHistory $customerHistory)
     {
         $history = $customerHistory->update(['paid' => 1]);
-        return 200;
+        return $customerHistory->id;
     }
 
     /**

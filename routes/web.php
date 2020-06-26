@@ -31,6 +31,7 @@ Route::group(['prefix' => '{language}'], function () {
             /*** System routes ***/
             Route::resource('categories', 'CategoryController');
             Route::get('categories/get_categories/{id}', 'CategoryController@getCategories');
+            Route::resource('models', 'ModelController');
             Route::resource('types', 'TypeController');
             Route::get('types/get_types/{id}', 'TypeController@getTypes');
             Route::resource('brands', 'BrandController');
@@ -40,9 +41,13 @@ Route::group(['prefix' => '{language}'], function () {
             Route::resource('customers', 'CustomerController');
             Route::resource('customer_history', 'CustomerHistoryController');
             Route::resource('products', 'ProductController');
+            Route::post('get_products', 'ProductController@getProducts');
             Route::resource('requests', 'UserRequestController');
             Route::resource('reports', 'ReportController');
             Route::post('reports/create', 'ReportController@create');
+            Route::resource('expenses', 'ExpenseController');
+
+            Route::get('print_bill/{customer_history}', 'CustomerHistoryController@show');
         });
     });
 });

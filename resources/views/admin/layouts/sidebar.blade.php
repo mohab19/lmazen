@@ -28,6 +28,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('brands.index', app()->getLocale())}}">@lang('main.brands')</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('models.index', app()->getLocale())}}">@lang('main.models')</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -42,6 +45,9 @@
                     <a class="nav-link" href="{{route('products.index', app()->getLocale())}}"><i class="far fa-envelope-open"></i> @lang('main.products')</a>
                 </li>
                 @auth('admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('expenses.index', app()->getLocale())}}"><i class="far fa-file-alt"></i> @lang('expenses.expenses')</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('reports.index', app()->getLocale())}}"><i class="far fa-file-alt"></i> @lang('main.reports')</a>
                 </li>

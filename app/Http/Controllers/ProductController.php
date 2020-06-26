@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use App\SupplierAccount;
+use App\ProductHistory;
 use App\Customer;
 use App\Supplier;
 use App\Product;
@@ -19,9 +20,11 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $products = Product::all();
+        $products  = Product::all();
         $customers = Customer::all();
-        return view('products.index', compact('products', 'customers'));
+        $brands    = Brand::all();
+        $types     = Type::all();
+        return view('products.index', compact('products', 'customers', 'brands', 'types'));
     }
 
     /**
@@ -33,7 +36,8 @@ class ProductController extends Controller
         $types     = Type::all();
         $brands    = Brand::all();
         $suppliers = Supplier::all();
-        return view('products.create', compact('types', 'brands', 'suppliers'));
+        $products  = Product::all();
+        return view('products.create', compact('types', 'brands', 'suppliers', 'products'));
     }
 
     /**
@@ -43,21 +47,33 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store($lang, ProductRequest $request) {
-        $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
-        request()->image->move(public_path('images/products'), $imageName);
 
-        $product = Product::create([
-            'name'          => $request->name,
-            'description'   => $request->description,
-            'image'         => $imageName,
-            'brand_id'      => $request->brand_id,
-            'type_id'       => $request->type_id,
-            'port_no'       => $request->port_no,
-            'buying_price'  => $request->buying_price,
-            'selling_price' => $request->selling_price,
-            'quantity'      => $request->quantity,
-            'supplier_id'   => $request->supplier_id,
-        ]);
+        if($request->Product_id == 0) {
+            $imageName = time().'_'.$request->input('name').'.'.$request->file('image')->getClientOriginalExtension();
+            request()->image->move(public_path('images/products'), $imageName);
+            $product = Product::create([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'image'         => $imageName,
+                'brand_id'      => $request->brand_id,
+                'type_id'       => $request->type_id,
+                'port_no'       => $request->port_no,
+                'buying_price'  => $request->buying_price,
+                'supplier_id'   => $request->supplier_id,
+            ]);
+
+            $productHistory = ProductHistory::create([
+                'product_id'    => $product->id,
+                'selling_price' => $request->selling_price,
+                'quantity'      => $request->quantity
+            ]);
+        } else {
+            $product = ProductHistory::create([
+                'product_id'    => $request->Product_id,
+                'selling_price' => $request->selling_price,
+                'quantity'      => $request->quantity
+            ]);
+        }
 
         $brand = Brand::where('id', $request->brand_id)->first();
 
@@ -92,7 +108,7 @@ class ProductController extends Controller
      */
     public function show($lang, Product $product)
     {
-        //
+        return $product;
     }
 
     /**
@@ -126,7 +142,7 @@ class ProductController extends Controller
             $imageName = $product->image;
         }
 
-        $product = Product::create([
+        $product->update([
             'name'          => $request->name,
             'description'   => $request->description,
             'image'         => $imageName,
@@ -134,9 +150,14 @@ class ProductController extends Controller
             'type_id'       => $request->type_id,
             'port_no'       => $request->port_no,
             'buying_price'  => $request->buying_price,
-            'selling_price' => $request->selling_price,
-            'quantity'      => $request->quantity,
             'supplier_id'   => $request->supplier_id,
+        ]);
+
+        $productHistory = ProductHistory::where('product_id', $product->id)->orderBy('created_at', 'desc')->first();
+
+        $productHistory->update([
+            'selling_price' => $request->selling_price,
+            'quantity'      => $request->quantity
         ]);
 
         if($product)
@@ -172,13 +193,35 @@ class ProductController extends Controller
         return view('products.product', compact('product'));
     }
 
-    public function productsMenu() {
-        $projectsTypes = Sector::where('sector_type', 'products')->get();
-        $html= '<ul>';
-        foreach ($projectsTypes as $key => $type) {
-            $html .= '<li>' . $type->name . '</li>';
+    public function getProducts(Request $request) {
+        if($request->type == null) {
+            $products = Product::select('products.*')
+                               ->join('brands', 'brands.id', '=', 'products.brand_id')
+                               ->join('types', 'types.id', '=', 'products.type_id')
+                               ->where('brands.name_ar', $request->brand)
+                               ->orWhere('brands.name_en', $request->brand)
+                               ->get();
+        } elseif($request->brand == null) {
+            $products = Product::select('products.*')
+                               ->join('brands', 'brands.id', '=', 'products.brand_id')
+                               ->join('types', 'types.id', '=', 'products.type_id')
+                               ->where('types.name_ar', $request->type)
+                               ->orWhere('types.name_en', $request->type)
+                               ->get();
+        } else {
+            $products = Product::select('products.*')
+                               ->join('brands', 'brands.id', '=', 'products.brand_id')
+                               ->join('types', 'types.id', '=', 'products.type_id')
+                               ->where('brands.name_ar', $request->brand)
+                               ->orWhere('brands.name_en', $request->brand)
+                               ->where('types.name_ar', $request->type)
+                               ->orWhere('types.name_en', $request->type)
+                               ->get();
         }
-        $html .= '</ul>';
-        return $html;
+        
+        $customers = Customer::all();
+        $brands    = Brand::all();
+        $types     = Type::all();
+        return view('products.index', compact('products', 'customers', 'brands', 'types'));
     }
 }

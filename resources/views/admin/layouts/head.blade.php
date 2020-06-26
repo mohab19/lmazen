@@ -8,6 +8,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="base_url" content="{{ url('/'. app()->getLocale()) }}">
+        <meta name="base" content="{{ url('/') }}">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('assets/css/components.min.css') }}" id="style_components">
@@ -31,6 +32,8 @@
         <link rel="stylesheet" type="text/css" href="{{URL('assets/vendor/datatables/css/buttons.bootstrap4.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL('assets/vendor/datatables/css/select.bootstrap4.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL('assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 
         @yield('StyleSheets')
 

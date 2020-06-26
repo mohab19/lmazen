@@ -1255,9 +1255,10 @@ return [
     'categories'     => 'Categories',
     'types'          => 'Type',
     'brands'         => 'Brands',
+    'models'         => 'Models',
     'products'       => 'Products',
     'customers'      => 'Customers',
     'suppliers'      => 'Suppliers',
-    'reports'        => 'Reports', 
+    'reports'        => 'Reports',
 
 ];

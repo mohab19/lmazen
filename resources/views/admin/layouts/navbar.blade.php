@@ -7,6 +7,22 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
+            <li class="nav-item dropdown">
+                @if(app()->getLocale() == 'ar')
+                <a class="nav-link dropdown-toggle" href="{{url('/ar')}}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-sa"> </span> عربي</a>
+                @else
+                <a class="nav-link dropdown-toggle" href="{{url('/en')}}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span> English</a>
+                @endif
+                @if(app()->getLocale() == 'en')
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                    <a class="dropdown-item" href="{{url('/ar')}}"><span class="flag-icon flag-icon-sa"> </span>  عربي</a>
+                </div>
+                @else
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                    <a class="dropdown-item" href="{{url('/en')}}"><span class="flag-icon flag-icon-us"> </span>  English</a>
+                </div>
+                @endif
+            </li>
             <li class="nav-item">
                 <div id="custom-search" class="top-search-bar">
                     <input class="form-control" type="text" placeholder="Search..">
