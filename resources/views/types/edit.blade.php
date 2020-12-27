@@ -49,12 +49,12 @@
                                 @method('PUT')
                                 <input type="hidden" id="route" value="{{route('types.update', [ app()->getLocale(), $type->id])}}">
                                 <input type="hidden" id="form_name" value="Type" data-id="types">
-                                <select name="category_id" id="type_categories"  class="form-control" required>
+                                <!--<select name="category_id" id="type_categories"  class="form-control" required>
                                     <option value="0" disabled selected>Select Category: </option>
                                     @foreach($categories as $key => $category)
                                     <option value="{{$category->id}}" @if($type->category_id == $category->id) selected @endif>{{$category['name_'.Lang::locale()]}}</option>
                                     @endforeach
-                                </select>
+                                </select>-->
                                 <div class="form-group">
                                     <label for="name_ar" class="col-form-label">@lang('types.name_ar')</label>
                                     <input type="text" name="name_ar" class="form-control" value="{{$type->name_ar}}" required>

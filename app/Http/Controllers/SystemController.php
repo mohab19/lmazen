@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\SystemRequest;
 use Illuminate\Http\Request;
-use App\Subscription;
-use App\Customer;
+use App\System;
+use App\Type;
 
-class CustomerController extends Controller
+class SystemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
-        return view('customers.index', compact('customers'));
+        $systems = System::all();
+        return view('systems.index', compact('systems'));
     }
 
     /**
@@ -27,7 +27,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customers.create');
+        $types = Type::all();
+        return view('systems.create', compact('types'));
     }
 
     /**
@@ -36,55 +37,54 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($lang, CustomerRequest $request)
+    public function store($lang, SystemRequest $request)
     {
-        return Customer::create($request->all());
+        $system = System::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\System  $system
      * @return \Illuminate\Http\Response
      */
-    public function show($lang, Customer $customer)
+    public function show($lang, System $system)
     {
-        //$subscriptions = Subscription::where('customer_id', $customer->id)->get();
-        return view('customers.show', compact('customer'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customer  $supplier
+     * @param  \App\System  $system
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, Customer $customer)
+    public function edit($lang, System $system)
     {
-        return view('customers.edit', compact('customer'));
+        $types = Type::all();
+        return view('systems.edit', compact('system', 'types'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customer  $supplier
+     * @param  \App\System  $system
      * @return \Illuminate\Http\Response
      */
-    public function update($lang, CustomerRequest $request, Customer $customer)
+    public function update($lang, SystemRequest $request, System $system)
     {
-        $customer->update($request->all());
-        return 200;
+        $system->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customer  $supplier
+     * @param  \App\System  $system
      * @return \Illuminate\Http\Response
      */
-    public function destroy($lang, Customer $customer)
+    public function destroy($lang, System $system)
     {
-        return $customer->delete();
+        $system->delete();
     }
 }

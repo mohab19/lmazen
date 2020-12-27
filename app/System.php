@@ -5,20 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class System extends Model
 {
-    use SoftDeletes;
+	use SoftDeletes;
 
-    protected $fillable = ['name', 'email', 'mobile', 'address'];
+    protected $fillable = ['name_ar', 'name_en', 'type_id', 'support_fees'];
 
-    function CustomerHistores()
+	public function Type()
     {
-        return $this->hasMany('App\CustomerHistory');
+        return $this->belongsTo('App\Type');
     }
 
 	public function Subscriptions()
     {
         return $this->hasMany('App\Subscription');
     }
-    
+
 }

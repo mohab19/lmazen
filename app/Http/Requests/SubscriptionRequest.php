@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerRequest extends FormRequest
+class SubscriptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,13 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => 'required|string|max:255',
-            'mobile'  => 'required|numeric|digits_between:11,14',
-            'email'   => 'nullable|string|email|max:255|unique:customers,email,'.$this->id,
-            'address' => 'nullable|string|max:255',
+            'customer_id'       => 'required|numeric',
+            'system_id'         => 'required|numeric',
+            'no_of_copies'      => 'required|numeric',
+            'subscription_fees' => 'required|numeric',
+            'started_at'        => 'required|date',
+            'ended_at'          => 'required|date',
+
         ];
     }
 }

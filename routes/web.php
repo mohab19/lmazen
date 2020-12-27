@@ -12,6 +12,7 @@
 */
 
 Route::auth();
+Route::post('register', 'Auth\RegisterController@create');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin-login');
 Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin-login.submit');
@@ -29,25 +30,13 @@ Route::group(['prefix' => '{language}'], function () {
             Route::get('users/activation/{user}','UserController@activation');
 
             /*** System routes ***/
-            Route::resource('categories', 'CategoryController');
-            Route::get('categories/get_categories/{id}', 'CategoryController@getCategories');
-            Route::resource('models', 'ModelController');
-            Route::resource('types', 'TypeController');
             Route::get('types/get_types/{id}', 'TypeController@getTypes');
-            Route::resource('brands', 'BrandController');
-            Route::get('brands/get_brands/{id}', 'BrandController@getBrands');
-            Route::resource('suppliers', 'SupplierController');
-            Route::resource('supplier_account', 'SupplierAccountController');
+            Route::resource('types', 'TypeController');
             Route::resource('customers', 'CustomerController');
-            Route::resource('customer_history', 'CustomerHistoryController');
-            Route::resource('products', 'ProductController');
-            Route::post('get_products', 'ProductController@getProducts');
-            Route::resource('requests', 'UserRequestController');
-            Route::resource('reports', 'ReportController');
-            Route::post('reports/create', 'ReportController@create');
-            Route::resource('expenses', 'ExpenseController');
-
-            Route::get('print_bill/{customer_history}', 'CustomerHistoryController@show');
+            Route::resource('systems', 'SystemController');
+            Route::get('subscriptions/pay/{subscription}', 'SubscriptionController@pay_subscription');
+            Route::resource('subscriptions', 'SubscriptionController');
+            
         });
     });
 });

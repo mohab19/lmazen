@@ -27,8 +27,7 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $categories = Category::all();
-        return view('types.create', compact('categories'));
+        return view('types.create');
     }
 
     /**
